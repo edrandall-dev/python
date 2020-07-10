@@ -1,2 +1,4 @@
 # python-pong
-This is a simple pong game, written in python.
+This is a simple pong game, written in python.  
+
+Update 10/07
