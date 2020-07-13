@@ -11,11 +11,12 @@ pygame.init()
 WIDTH = 1200
 HEIGHT = 800
 BORDER = 20
-VELOCITY = 1
+VELOCITY = 10
 
 #Draw the playing area
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 fgcolour = pygame.Color("white")
+bgcolour = pygame.Color("black")
 
 #Define Classes
 class Ball:
@@ -26,15 +27,20 @@ class Ball:
         self.vx = vx
         self.vy = vy
 
-    def show(self):
-        global screen
-        global fgcolour
-        pygame.draw.circle(screen, fgcolour, (self.x, self.y), self.RADIUS)
+    def show(self, colour):
+        #global screen
+        pygame.draw.circle(screen, colour, (self.x, self.y), self.RADIUS)
     
     def update(self):
+        #global bgcolour, fgcolour
+        self.show(bgcolour)
+        if self.x == 40:
+            self.vx = self.vx * -1
+
         self.x = self.x + self.vx
         self.y = self.y + self.vy
-        self.show()
+        self.show(fgcolour)
+        
 
 class Paddle:
     pass
@@ -53,11 +59,9 @@ pygame.draw.rect(screen, fgcolour, rect2)
 pygame.draw.rect(screen, fgcolour, rect3)
 
 #Show the ball object
-ballplay.show()
+ballplay.show(fgcolour)
 
-pygame.display.flip()
-
-#Capture the event when a user closes the window and exit the program
+#Everything actually takes place within this loop, including the exit event which is handled by pygame.QUIT
 while True:
     event = pygame.event.poll()
     if event.type == pygame.QUIT:
