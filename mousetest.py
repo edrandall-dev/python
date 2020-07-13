@@ -5,11 +5,15 @@ import pygame
 import time
 pygame.init()
 
+#Window Title
+pygame.display.set_caption('The worst incarnation of pong that you\'ve ever seen!') 
+
+
 #Set some variables
 WIDTH = 1200
 HEIGHT = 800
 BORDER = 20
-VELOCITY = 10
+VELOCITY = 5
 
 #Draw the playing area
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
@@ -38,7 +42,14 @@ class Ball:
             self.vy = self.vy * -1
         if self.y == 760:
             self.vy = self.vy * -1
-
+        if self.x == 1200:
+            print("Game Over!")
+            
+        if gamePaddle.y == self.y:
+          self.vy = self.vy * -1
+          self.vx = self.vx * -1
+          print("Hit!")
+    
         self.x = self.x + self.vx
         self.y = self.y + self.vy
         self.show(shapeOn)
@@ -63,18 +74,16 @@ class Paddle:
     self.show(shapeOn)
 
 #Create a new object of class Block and say where you want it to start off.
-gamePaddle = Paddle(1160,20)
+gamePaddle = Paddle(1140,20)
 
 #Create a new object of class Ball and define its attributes.
 gameBall = Ball(WIDTH-Ball.RADIUS, HEIGHT//2, -VELOCITY, -VELOCITY)
 
 #Draw the border which is made up of 3 rectangles
-
 ##Define each rectangle which will be drawn to make up the border
-rect1 = pygame.Rect((0,0),(WIDTH,BORDER))
-rect2 = pygame.Rect((0,780),(WIDTH,BORDER))
+rect1 = pygame.Rect((0,0),(WIDTH-40,BORDER))
+rect2 = pygame.Rect((0,780),(WIDTH-40,BORDER))
 rect3 = pygame.Rect((0,0),(BORDER,HEIGHT))
-
 ##Actually draw each rectangle to make the border
 pygame.draw.rect(screen, shapeOn, rect1)
 pygame.draw.rect(screen, shapeOn, rect2)
@@ -90,6 +99,9 @@ while True:
         break
     gamePaddle.update()
     gameBall.update()
+
+    #if gameBall.x == 
+    
     #Force pygame to draw the screen.
     pygame.display.flip()
     
