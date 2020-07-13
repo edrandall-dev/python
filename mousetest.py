@@ -17,7 +17,7 @@ shapeOff = pygame.Color("black")
 
 class Block:
   blockWidth = 20
-  blockHeight = 20
+  blockHeight = 100
 
   def __init__(self,x,y):
     self.y = y
@@ -30,24 +30,24 @@ class Block:
     pygame.draw.rect(screen, colour, shapeProperties)
 
   def update(self):
-    self.show(shapeOn)
+    self.show(shapeOff)
     #self.y = self.y + 1
     self.y = pygame.mouse.get_pos()[1] 
-    self.x = pygame.mouse.get_pos()[0]
+    #self.x = pygame.mouse.get_pos()[0]
     self.show(shapeOn)
 
 #Create a new object of class Block and say where you want it to start off.
-mySquare = Block(1,1)
+paddle = Block(1160,20)
 
 #Show the new object on the screen
-mySquare.show(100)
+paddle.show(100)
 
 
 while True:
     event = pygame.event.poll()
     if event.type == pygame.QUIT:
         break
-    mySquare.update()
+    paddle.update()
     #Force pygame to draw the screen.
     pygame.display.flip()
     
