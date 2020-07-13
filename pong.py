@@ -44,6 +44,8 @@ while True:
 
 pygame.display.quit()
 
+
+#Not needed after switch to pygame2 and python3
 #Yes, this is a horrible hack but I can't get the program to quit without it.
-killcmd = "ps -ef | grep -i pong.py | grep -v grep | awk {'print $2'} | xargs kill -9"
-os.system(killcmd)
+#killcmd = "ps -ef | grep -i pong.py | grep -v grep | awk {'print $2'} | xargs kill -9"
+#os.system(killcmd)
