@@ -36,17 +36,29 @@ class Ball:
         self.show(bgcolour)
         if self.x == 40:
             self.vx = self.vx * -1
+        if self.y == 40:
+            self.vy = self.vy * -1
+        if self.y == 760:
+            self.vy = self.vy * -1
 
         self.x = self.x + self.vx
         self.y = self.y + self.vy
         self.show(fgcolour)
         
-
 class Paddle:
-    pass
+    PADDLEWIDTH = 20
+    PADDLEHEIGHT = 100
+
+    def __init__(self,y):
+        self.y = y
+
+    def show(self,colour):
+        paddle = pygame.Rect((WIDTH-self.PADDLEWIDTH, HEIGHT//2, self.PADDLEWIDTH, self.PADDLEHEIGHT))
+        pygame.draw.rect(screen, colour, paddle)
 
 #Create Objects
-ballplay = Ball(WIDTH-Ball.RADIUS, HEIGHT//2, -VELOCITY,0)
+ballplay = Ball(WIDTH-Ball.RADIUS, HEIGHT//2, -VELOCITY, -VELOCITY)
+paddleplay = Paddle(HEIGHT//2)
 
 #Draw the border which is made up of 3 rectangles
 ##Define each rectangle which will be drawn to make up the border
@@ -60,6 +72,7 @@ pygame.draw.rect(screen, fgcolour, rect3)
 
 #Show the ball object
 ballplay.show(fgcolour)
+paddleplay.show(fgcolour)
 
 #Everything actually takes place within this loop, including the exit event which is handled by pygame.QUIT
 while True:
