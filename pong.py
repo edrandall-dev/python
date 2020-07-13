@@ -2,7 +2,6 @@
 
 #import what we need
 import pygame
-import os
 
 #Initalise Pygame
 pygame.init()
@@ -12,6 +11,7 @@ WIDTH = 1200
 HEIGHT = 800
 BORDER = 20
 VELOCITY = 10
+FRAMERATE = 50
 
 #Draw the playing area
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
@@ -53,8 +53,13 @@ class Paddle:
         self.y = y
 
     def show(self,colour):
-        paddle = pygame.Rect((WIDTH-self.PADDLEWIDTH, HEIGHT//2, self.PADDLEWIDTH, self.PADDLEHEIGHT))
+        paddle = pygame.Rect((WIDTH-self.PADDLEWIDTH, HEIGHT//2+125, self.PADDLEWIDTH, self.PADDLEHEIGHT))
         pygame.draw.rect(screen, colour, paddle)
+    
+    def update(self):
+        self.show(bgcolour)
+        self.y = pygame.mouse.get_pos()[1] 
+        self.show(fgcolour)
 
 #Create Objects
 ballplay = Ball(WIDTH-Ball.RADIUS, HEIGHT//2, -VELOCITY, -VELOCITY)
@@ -74,12 +79,19 @@ pygame.draw.rect(screen, fgcolour, rect3)
 ballplay.show(fgcolour)
 paddleplay.show(fgcolour)
 
+clock = pygame.time.Clock()
+
 #Everything actually takes place within this loop, including the exit event which is handled by pygame.QUIT
 while True:
     event = pygame.event.poll()
     if event.type == pygame.QUIT:
         break
+    clock.tick(FRAMERATE)
+ 
+    print (paddleplay.y)
+
     ballplay.update()
+    paddleplay.update()
     #Force pygame to draw the screen.
     pygame.display.flip()
 pygame.quit()
