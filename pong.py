@@ -3,22 +3,26 @@
 #Import & initialise pygame
 import pygame
 import time
+import sys 
+
 pygame.init()
 
 #Window Title
 pygame.display.set_caption('The worst incarnation of pong that you\'ve ever seen!') 
-
+print()
+print("Your score is: ", end='')
 
 #Set some variables
 WIDTH = 1200
 HEIGHT = 800
 BORDER = 20
-VELOCITY = 5
+VELOCITY = 10
+SCORE = 0 
 
 #Draw the playing area
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
-shapeOn = pygame.Color("yellow")
+shapeOn = pygame.Color("white")
 shapeOff = pygame.Color("black")
 
 #Define Classes
@@ -44,20 +48,20 @@ class Ball:
             self.vy = self.vy * -1
         if self.x == 1200:
             print("Game Over!")
-    
+
         self.x = self.x + self.vx
         self.y = self.y + self.vy
         self.show(shapeOn)
 
-
-
 class Paddle:
   blockWidth = 20
   blockHeight = 100
+  score = 0 
 
   def __init__(self,x,y):
     self.y = y
     self.x = x
+    self.score = 1
 
   def show(self,colour):
     #First 2 co-ordinates  = Shape position (on screen)
@@ -69,19 +73,18 @@ class Paddle:
     self.show(shapeOff)
     self.y = pygame.mouse.get_pos()[1] 
     self.show(shapeOn)
-
-    #dot = pygame.Rect((self.x,self.y),(1,1))
-    #pygame.draw.rect(screen, shapeOff, dot)
+ 
+    
 
     is_hit = gameBall.y in range(self.y, self.y+100)
-    
     if is_hit == True: 
-    #if self.y == gameBall.y <= self.y+100:
-      print ("Ball: ", gameBall.x,gameBall.y, "Paddle: ", self.x, self.y)
       if gameBall.x == self.x:
-        print("Hit!")
         gameBall.vy = gameBall.vy * -1
         gameBall.vx = gameBall.vx * -1
+        print(self.score)
+        #sys.stdout.write(str(self.score))
+        self.score += 1
+        #sys.stdout.flush() 
 
 #Create a new object of class Block and say where you want it to start off.
 gamePaddle = Paddle(1140,20)
@@ -91,8 +94,8 @@ gameBall = Ball(WIDTH-Ball.RADIUS, HEIGHT//2, -VELOCITY, -VELOCITY)
 
 #Draw the border which is made up of 3 rectangles
 ##Define each rectangle which will be drawn to make up the border
-rect1 = pygame.Rect((0,0),(WIDTH-40,BORDER))
-rect2 = pygame.Rect((0,780),(WIDTH-40,BORDER))
+rect1 = pygame.Rect((0,0),(WIDTH-60,BORDER))
+rect2 = pygame.Rect((0,780),(WIDTH-60,BORDER))
 rect3 = pygame.Rect((0,0),(BORDER,HEIGHT))
 ##Actually draw each rectangle to make the border
 pygame.draw.rect(screen, shapeOn, rect1)
