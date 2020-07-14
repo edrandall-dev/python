@@ -23,7 +23,7 @@ shapeOff = pygame.Color("black")
 
 #Define Classes
 class Ball:
-    RADIUS = 20
+    RADIUS = 10
     def __init__(self,x,y,vx,vy):
         self.x = x
         self.y = y
@@ -44,15 +44,12 @@ class Ball:
             self.vy = self.vy * -1
         if self.x == 1200:
             print("Game Over!")
-            
-        if gamePaddle.y == self.y:
-          self.vy = self.vy * -1
-          self.vx = self.vx * -1
-          print("Hit!")
     
         self.x = self.x + self.vx
         self.y = self.y + self.vy
         self.show(shapeOn)
+
+
 
 class Paddle:
   blockWidth = 20
@@ -72,6 +69,19 @@ class Paddle:
     self.show(shapeOff)
     self.y = pygame.mouse.get_pos()[1] 
     self.show(shapeOn)
+
+    #dot = pygame.Rect((self.x,self.y),(1,1))
+    #pygame.draw.rect(screen, shapeOff, dot)
+
+    is_hit = gameBall.y in range(self.y, self.y+100)
+    
+    if is_hit == True: 
+    #if self.y == gameBall.y <= self.y+100:
+      print ("Ball: ", gameBall.x,gameBall.y, "Paddle: ", self.x, self.y)
+      if gameBall.x == self.x:
+        print("Hit!")
+        gameBall.vy = gameBall.vy * -1
+        gameBall.vx = gameBall.vx * -1
 
 #Create a new object of class Block and say where you want it to start off.
 gamePaddle = Paddle(1140,20)
@@ -99,8 +109,6 @@ while True:
         break
     gamePaddle.update()
     gameBall.update()
-
-    #if gameBall.x == 
     
     #Force pygame to draw the screen.
     pygame.display.flip()
