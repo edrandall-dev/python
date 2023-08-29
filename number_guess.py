@@ -1,18 +1,29 @@
 #!/usr/bin/python3
 
-secret_number = 128
+import random
 
-def have_a_guess():
-  global guess
-  guess = int(input("Have a guess of the secret number: "))
-  
-have_a_guess()
+lower = 1
+upper = 100
 
-while secret_number != guess:
-  if secret_number > guess:
-    print ("Your guess of " + str(guess) + " is too low")
-  elif secret_number < guess:
-    print ("Your guess of " + str(guess) + " is too high")
-  have_a_guess()
-  
-print("You guessed it, it was " + str(secret_number)+ "!")
+secret_number = random.randint(lower,upper)
+
+print ("I have chosen a secret number between " + str(lower) + " and " + str(upper) + ". Let's see how quickly you can guess it.", end=" ")
+
+tries = 0
+
+while True:
+  tries = tries + 1
+  guess = int(input("Enter a guess: "))
+
+  if guess > upper:
+    print ("Guess number " + str(tries) + ": Remember that it's a number between " + str(lower) + " and " + str(upper), end=". ")
+  elif guess < lower:
+    print ("Guess number " + str(tries) + ": Remember that it's a number between " + str(lower) + " and " + str(upper), end=". ")
+  else:
+    if guess > secret_number:
+      print ("Guess number " + str(tries) + ": Your guess of " + str(guess) + " is too high")
+    elif guess < secret_number:  
+      print ("Guess number " + str(tries) + ": Your guess of " + str(guess) + " is too low")
+    else:  
+      print("You guessed that it was " + str(secret_number) + " in " + str(tries) + " guesses!")
+      break
