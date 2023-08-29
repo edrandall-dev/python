@@ -1,3 +1,3 @@
-# python-pong
-This is a simple pong game, written in python.  It is based on the tutorials from the University of Nottingham's "Computerphile" Youtube channel.
+#python
 
+I'm learning python. Here are some very simple python programs, which I've created.
