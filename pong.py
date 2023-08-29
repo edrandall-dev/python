@@ -13,8 +13,8 @@ print()
 print("Your score is: ", end='')
 
 #Set some variables
-WIDTH = 1200
-HEIGHT = 800
+WIDTH = 1000    
+HEIGHT = 600
 BORDER = 20
 VELOCITY = 10
 SCORE = 0 
