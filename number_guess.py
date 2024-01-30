@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 
 import random
+import sys
+
+if len(sys.argv) == 3:
+  print(sys.argv[1])
 
 lower = 1
 upper = 100
